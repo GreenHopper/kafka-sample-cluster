@@ -1,0 +1,39 @@
+{
+  "type": "record",
+  "name": "CustomerValue",
+  "namespace": "sample.delivery",
+  "fields": [
+    {
+      "name": "customer_id",
+      "type": "string"
+    },
+    {
+      "name": "name",
+      "type": "string"
+    },
+    {
+      "name": "contact_email",
+      "type": "string"
+    },
+    {
+      "name": "phone",
+      "type": "string"
+    },
+    {
+      "name": "address_id",
+      "type": "string"
+    },
+    {
+      "name": "preferred_time_window",
+      "type": "string"
+    },
+    {
+      "name": "since",
+      "type": "string"
+    },
+    {
+      "name": "loyalty_tier",
+      "type": "string"
+    }
+  ]
+}

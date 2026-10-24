@@ -1,0 +1,7 @@
+# Generated cluster data lives in Docker volumes, never here. These entries catch ad-hoc dumps and local experiments.
+data/
+seed-state/
+__pycache__/
+*.pyc
+.venv/
+.env

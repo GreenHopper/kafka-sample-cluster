@@ -1,0 +1,47 @@
+{
+  "type": "record",
+  "name": "VehiclePositionValue",
+  "namespace": "sample.delivery",
+  "fields": [
+    {
+      "name": "vehicle_id",
+      "type": "string"
+    },
+    {
+      "name": "route_id",
+      "type": "string"
+    },
+    {
+      "name": "ts",
+      "type": "long"
+    },
+    {
+      "name": "lat",
+      "type": "double"
+    },
+    {
+      "name": "lon",
+      "type": "double"
+    },
+    {
+      "name": "speed_kmh",
+      "type": "float"
+    },
+    {
+      "name": "heading_deg",
+      "type": "float"
+    },
+    {
+      "name": "odometer_km",
+      "type": "double"
+    },
+    {
+      "name": "engine_on",
+      "type": "boolean"
+    },
+    {
+      "name": "fix_quality",
+      "type": "string"
+    }
+  ]
+}

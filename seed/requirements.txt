@@ -1,0 +1,4 @@
+# Pinned; see docs/versions.md. fastavro is also pulled transitively by the
+# confluent-kafka avro extra, pinned here so the codec is explicit.
+confluent-kafka[schemaregistry,avro]==2.16.0
+fastavro==1.13.1

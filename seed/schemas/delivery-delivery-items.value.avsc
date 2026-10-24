@@ -1,0 +1,54 @@
+{
+  "type": "record",
+  "name": "DeliveryItemValue",
+  "namespace": "sample.delivery",
+  "fields": [
+    {
+      "name": "item_id",
+      "type": "string"
+    },
+    {
+      "name": "delivery_id",
+      "type": "string"
+    },
+    {
+      "name": "sku",
+      "type": "string"
+    },
+    {
+      "name": "description",
+      "type": "string"
+    },
+    {
+      "name": "quantity",
+      "type": "int"
+    },
+    {
+      "name": "weight_kg",
+      "type": "double"
+    },
+    {
+      "name": "length_cm",
+      "type": "double"
+    },
+    {
+      "name": "width_cm",
+      "type": "double"
+    },
+    {
+      "name": "height_cm",
+      "type": "double"
+    },
+    {
+      "name": "handling_flags",
+      "type": {
+        "type": "array",
+        "items": "string"
+      }
+    },
+    {
+      "name": "declared_value_cents",
+      "type": "int"
+    }
+  ]
+}

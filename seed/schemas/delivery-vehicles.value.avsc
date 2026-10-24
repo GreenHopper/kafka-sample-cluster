@@ -1,0 +1,43 @@
+{
+  "type": "record",
+  "name": "VehicleValue",
+  "namespace": "sample.delivery",
+  "fields": [
+    {
+      "name": "vehicle_id",
+      "type": "string"
+    },
+    {
+      "name": "plate",
+      "type": "string"
+    },
+    {
+      "name": "type",
+      "type": "string"
+    },
+    {
+      "name": "max_weight_kg",
+      "type": "double"
+    },
+    {
+      "name": "max_volume_m3",
+      "type": "double"
+    },
+    {
+      "name": "emission_class",
+      "type": "string"
+    },
+    {
+      "name": "home_depot_id",
+      "type": "string"
+    },
+    {
+      "name": "last_service_date",
+      "type": "string"
+    },
+    {
+      "name": "odometer_km",
+      "type": "double"
+    }
+  ]
+}

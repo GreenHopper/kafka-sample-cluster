@@ -1,0 +1,93 @@
+# Single-node Kafka (KRaft) + Confluent Schema Registry + one-shot seeder.
+# Versions are pinned explicitly; see docs/versions.md for the reasons.
+# Cluster data lives in named volumes only, never in the repository.
+
+services:
+  kafka:
+    image: apache/kafka:4.4.0
+    container_name: ksc-kafka
+    hostname: kafka
+    ports:
+      - "${KAFKA_HOST_PORT:-9092}:9092"
+    environment:
+      CLUSTER_ID: nx584prxQfe-fVzB4Gz1bg
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_LISTENERS:
+        INTERNAL://:9093,HOST://:9092,CTL://:9094
+      KAFKA_ADVERTISED_LISTENERS:
+        INTERNAL://kafka:9093,HOST://localhost:${KAFKA_HOST_PORT:-9092}
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP:
+        INTERNAL:PLAINTEXT,HOST:PLAINTEXT,CTL:PLAINTEXT
+      KAFKA_CONTROLLER_LISTENER_NAMES: CTL
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9094
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_LOG_DIRS: /var/lib/kafka/data
+      KAFKA_NUM_PARTITIONS: 1
+      KAFKA_DEFAULT_REPLICATION_FACTOR: 1
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false"
+    volumes:
+      - kafka-data:/var/lib/kafka/data
+    healthcheck:
+      test: >-
+        /opt/kafka/bin/kafka-broker-api-versions.sh
+        --bootstrap-server localhost:9093 >/dev/null 2>&1
+      interval: 10s
+      timeout: 15s
+      retries: 30
+      start_period: 30s
+
+  schema-registry:
+    image: confluentinc/cp-schema-registry:8.3.2
+    container_name: ksc-schema-registry
+    hostname: schema-registry
+    ports:
+      - "${REGISTRY_HOST_PORT:-8081}:8081"
+    depends_on:
+      kafka:
+        condition: service_healthy
+    environment:
+      SCHEMA_REGISTRY_HOST_NAME: schema-registry
+      SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS:
+        PLAINTEXT://kafka:9093
+      SCHEMA_REGISTRY_KAFKASTORE_SECURITY_PROTOCOL: PLAINTEXT
+      SCHEMA_REGISTRY_KAFKASTORE_TOPIC: _schemas
+      SCHEMA_REGISTRY_KAFKASTORE_TOPIC_REPLICATION_FACTOR: 1
+      SCHEMA_REGISTRY_SCHEMA_COMPATIBILITY_LEVEL: backward
+      SCHEMA_REGISTRY_SCHEMA_REGISTRY_GROUP_ID: sample-cluster-schema-registry
+    healthcheck:
+      # The image ships neither curl nor wget, so probe the HTTP port with
+      # bash's /dev/tcp instead.
+      test:
+        - CMD-SHELL
+        - >-
+          bash -c 'exec 3<>/dev/tcp/localhost/8081
+          && printf "GET /subjects HTTP/1.0\r\n\r\n" >&3
+          && head -1 <&3 | grep -q 200'
+      interval: 10s
+      timeout: 15s
+      retries: 30
+      start_period: 30s
+
+  # One-shot service: creates topics, registers schemas, produces the sample
+  # records, then exits 0. Re-running it against a populated cluster is a no-op.
+  seeder:
+    build:
+      context: .
+      dockerfile: seed/Dockerfile
+    image: kafka-sample-seeder:1.0.0
+    depends_on:
+      schema-registry:
+        condition: service_healthy
+    environment:
+      BOOTSTRAP_SERVERS: kafka:9093
+      SCHEMA_REGISTRY_URL: http://schema-registry:8081
+    command: ["python", "seed_data.py", "seed"]
+
+volumes:
+  kafka-data:

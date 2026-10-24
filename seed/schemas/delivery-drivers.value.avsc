@@ -1,0 +1,51 @@
+{
+  "type": "record",
+  "name": "DriverValue",
+  "namespace": "sample.delivery",
+  "fields": [
+    {
+      "name": "driver_id",
+      "type": "string"
+    },
+    {
+      "name": "first_name",
+      "type": "string"
+    },
+    {
+      "name": "last_name",
+      "type": "string"
+    },
+    {
+      "name": "licence_class",
+      "type": "string"
+    },
+    {
+      "name": "licence_expiry",
+      "type": "string"
+    },
+    {
+      "name": "shift_start_hour",
+      "type": "int"
+    },
+    {
+      "name": "shift_end_hour",
+      "type": "int"
+    },
+    {
+      "name": "home_depot_id",
+      "type": "string"
+    },
+    {
+      "name": "phone",
+      "type": "string"
+    },
+    {
+      "name": "rating",
+      "type": "float"
+    },
+    {
+      "name": "hired_since",
+      "type": "string"
+    }
+  ]
+}

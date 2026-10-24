@@ -1,0 +1,55 @@
+{
+  "type": "record",
+  "name": "RouteValue",
+  "namespace": "sample.delivery",
+  "fields": [
+    {
+      "name": "route_id",
+      "type": "string"
+    },
+    {
+      "name": "route_date",
+      "type": "string"
+    },
+    {
+      "name": "vehicle_id",
+      "type": "string"
+    },
+    {
+      "name": "driver_id",
+      "type": "string"
+    },
+    {
+      "name": "depot_address_id",
+      "type": "string"
+    },
+    {
+      "name": "start_ts",
+      "type": "long"
+    },
+    {
+      "name": "end_ts",
+      "type": "long"
+    },
+    {
+      "name": "planned_distance_km",
+      "type": "double"
+    },
+    {
+      "name": "area_name",
+      "type": "string"
+    },
+    {
+      "name": "center_lat",
+      "type": "double"
+    },
+    {
+      "name": "center_lon",
+      "type": "double"
+    },
+    {
+      "name": "radius_km",
+      "type": "double"
+    }
+  ]
+}

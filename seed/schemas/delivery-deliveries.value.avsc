@@ -1,0 +1,70 @@
+{
+  "type": "record",
+  "name": "DeliveryValue",
+  "namespace": "sample.delivery",
+  "fields": [
+    {
+      "name": "delivery_id",
+      "type": "string"
+    },
+    {
+      "name": "customer_id",
+      "type": "string"
+    },
+    {
+      "name": "address_id",
+      "type": "string"
+    },
+    {
+      "name": "route_id",
+      "type": "string"
+    },
+    {
+      "name": "vehicle_id",
+      "type": "string"
+    },
+    {
+      "name": "driver_id",
+      "type": "string"
+    },
+    {
+      "name": "status",
+      "type": "string"
+    },
+    {
+      "name": "created_ts",
+      "type": "long"
+    },
+    {
+      "name": "promised_from_ts",
+      "type": "long"
+    },
+    {
+      "name": "promised_to_ts",
+      "type": "long"
+    },
+    {
+      "name": "completed_ts",
+      "type": [
+        "null",
+        "long"
+      ]
+    },
+    {
+      "name": "weight_kg",
+      "type": "double"
+    },
+    {
+      "name": "volume_m3",
+      "type": "double"
+    },
+    {
+      "name": "total_price_cents",
+      "type": "int"
+    },
+    {
+      "name": "priority",
+      "type": "string"
+    }
+  ]
+}

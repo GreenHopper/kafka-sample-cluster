@@ -1,0 +1,45 @@
+{
+  "type": "record",
+  "name": "DeliveryEventValue",
+  "namespace": "sample.delivery",
+  "fields": [
+    {
+      "name": "event_id",
+      "type": "string"
+    },
+    {
+      "name": "delivery_id",
+      "type": "string"
+    },
+    {
+      "name": "status",
+      "type": "string"
+    },
+    {
+      "name": "ts",
+      "type": "long"
+    },
+    {
+      "name": "actor_type",
+      "type": "string"
+    },
+    {
+      "name": "note",
+      "type": "string"
+    },
+    {
+      "name": "lat",
+      "type": [
+        "null",
+        "double"
+      ]
+    },
+    {
+      "name": "lon",
+      "type": [
+        "null",
+        "double"
+      ]
+    }
+  ]
+}
